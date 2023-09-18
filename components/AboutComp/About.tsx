@@ -20,7 +20,7 @@ export default function About() {
           Most jobs do not explicitly require certain typing speeds, but that&apos;s because basic typing skills are
           taken as a given. Thus, you should{" "}
           <span className="font-bold text-gray-300">aim for a typing speed of at least 40 WPM</span> to keep up a
-          standard level of efficiency at work..Whether you're a beginner looking to improve your accuracy or an experienced typist striving for greater efficiency, our platform offers a range of exercises and challenges to suit your needs.Join our community, track your progress, and embark on a journey towards becoming a more proficient typist. Start typing your way to success today!
+          standard level of efficiency at work..Whether you&apos;re a beginner looking to improve your accuracy or an experienced typist striving for greater efficiency, our platform offers a range of exercises and challenges to suit your needs.Join our community, track your progress, and embark on a journey towards becoming a more proficient typist. Start typing your way to success today!
 
 
 
