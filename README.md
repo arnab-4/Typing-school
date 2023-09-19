@@ -24,7 +24,7 @@ Welcome to the Typing Website – a platform designed to improve your typing ski
 
 ## 🏁 Getting Started
 
-1. Clone this repository: `git clone https://github.com/yourusername/typing-website.git`
+1. Clone this repository: `https://github.com/arnab-4/Typing-school.git`
 2. Install dependencies: `npm install`
 3. Start the development server: `npm run dev`
 4. Visit `http://localhost:3000` in your browser.
