@@ -249,7 +249,7 @@ export default function Home() {
               </div>
             </div>
           </main>
-          <Footer className="absolute bottom-0" link="https://github.com/arnab-4/Typing-school" />
+          <Footer className="absolute bottom-0" link="https://arnab-portfolio-v2.vercel.app/" />
         </>
       )}
 
@@ -263,7 +263,7 @@ export default function Home() {
             statistics={statistics}
             timeToType={timeToType}
           />
-          <Footer className="pt-16" link="https://github.com/arnab-4/Typing-school" />
+          <Footer className="pt-16" link="https://arnab-portfolio-v2.vercel.app/" />
         </>
       )}
     </div>
