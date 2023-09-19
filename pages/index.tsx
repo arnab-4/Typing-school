@@ -249,7 +249,7 @@ export default function Home() {
               </div>
             </div>
           </main>
-          <Footer className="absolute bottom-0" link="https://github.com/hktitof/Typing" />
+          <Footer className="absolute bottom-0" link="https://github.com/arnab-4/Typing-Trainer" />
         </>
       )}
 
@@ -263,7 +263,7 @@ export default function Home() {
             statistics={statistics}
             timeToType={timeToType}
           />
-          <Footer className="pt-16" link="https://github.com/hktitof/Typing" />
+          <Footer className="pt-16" link="https://github.com/arnab-4/Typing-Trainer" />
         </>
       )}
     </div>
