@@ -249,7 +249,7 @@ export default function Home() {
               </div>
             </div>
           </main>
-          <Footer className="absolute bottom-0" link="https://github.com/arnab-4/Typing-Trainer" />
+          <Footer className="absolute bottom-0" link="https://github.com/arnab-4" />
         </>
       )}
 
