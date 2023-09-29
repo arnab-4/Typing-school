@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Typing-school.png" alt="Typing Website Logo" width="200">
+  <img src="Typing-school.png" alt="Typing Website Logo" width="1200">
 </p>
 
 # Typing Website
