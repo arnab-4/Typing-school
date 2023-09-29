@@ -31,7 +31,7 @@ Welcome to the Typing Website – a platform designed to improve your typing ski
 
 ## 📡 API Integration
 
-To use our API, please contact us at [api@typingwebsite.com](mailto:api@typingwebsite.com) for an API key and documentation.
+To use our API, please contact us at [api@typingwebsite.com](mailto:arnabmanna203@gmail.com) for an API key and documentation.
 
 ## 🤝 Contributing
 
