@@ -13,6 +13,12 @@ export const getData = async (
   fetch("/api/typing/10")
     .then(response => response.json())
     .then(data => {
+      // Check if there's a server-side error first
+      if (data.error) {
+        console.error('Server-side error:', data.error);
+        return;
+      }
+
       // Check if data exists and has a valid quote property
       if (!data || !data.quote || typeof data.quote !== 'string') {
         console.error('Invalid API response: quote property is missing or not a string', data);
