@@ -13,6 +13,12 @@ export const getData = async (
   fetch("/api/typing/10")
     .then(response => response.json())
     .then(data => {
+      // Check if data exists and has a valid quote property
+      if (!data || !data.quote || typeof data.quote !== 'string') {
+        console.error('Invalid API response: quote property is missing or not a string', data);
+        return;
+      }
+
       // ?UNCOMMENT THIS TO MODIFY THE QUOTE FOR TESTING
       // data.quote = "j";
       const wordsAndStatus: wordsStatus = []; // this aaay will hold the words and their status
