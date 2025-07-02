@@ -6,9 +6,9 @@ import { getData, calculateWpm, calculateAccuracy, handleOnChangeInput } from ".
 import CursorCarrotComp from "../components/CursorCarotComp/CursorCarotComp";
 import {ActiveWordWithIndex, Data, Statistics} from "../components/Types/types";
 
-
 let keyboardEvent; // this variable will hold the keyboard event callback function;
 let eventInputLostFocus; //  this variable will hold the event callback function that will be fired when window is resizing & input lost focus
+
 export default function Home() {
   //  this general state will hold the data
   const [myText, setMyText] = React.useState<Data>([[], [], { CursorPosition: 0 }]);
@@ -116,95 +116,121 @@ export default function Home() {
     }
   }, [inputLostFocus]);
 
-  // console.log("rounded Count : ", roundCounter);
-  // console.log("page re-rendered...");
-  // console.log("data : ", myText);
-  // console.log("Active Word : ", activeWordWithIndex);
-  // console.log("CursorPosition : ", myText[2].CursorPosition);
-  // console.log("rendering Finished-----------------------------");
-
   return (
-    <div
-      className={` bg-AAprimary min-h-screen  w-full flex flex-col justify-center items-center ${
-        isFinished ? "pt-48" : ""
-      }`}
-    >
-      {!isFinished && !(myText[1].length == 0) && (
-        <>
-          {/* Main page / Typing page */}
-          <main className="w-full 2xl:px-96 xl:px-80 lg:px-64 md:px-28 px-12 flex flex-col justify-center items-center space-y-12">
-            <div ref={textInputRef} className="relative w-full h-full flex flex-col space-y-8  ">
-              {inputLostFocus && (
-                <div
-                  onClick={() => {
-                    setInputLostFocus(false);
-                  }}
-                  ref={absoluteTextINputRef}
-                  className="absolute w-full z-10 bg-AAprimary opacity-90 rounded border-[0.5px] border-gray-700 flex justify-center items-center
-                          hover:cursor-pointer"
-                >
-                  <span className="text-gray-400 font-mono">Click to continue..</span>
+    <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 min-h-screen w-full flex flex-col">
+      {/* Header */}
+      <header className="w-full px-4 py-6 flex justify-center">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-lg">T</span>
+          </div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            TypeMaster
+          </h1>
+        </div>
+      </header>
+
+      <div className={`flex-1 flex flex-col justify-center items-center ${isFinished ? "pt-16" : ""}`}>
+        {!isFinished && !(myText[1].length == 0) && (
+          <>
+            {/* Main Typing Interface */}
+            <main className="w-full max-w-6xl mx-auto px-6 flex flex-col justify-center items-center space-y-8">
+              {/* Stats Bar */}
+              {isStartedTyping && (
+                <div className="w-full bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 shadow-2xl">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center space-x-6">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-cyan-400">
+                          {seconds.current == timeToType ? "0" : calculateWpm(myText[1], timeToType - seconds.current)}
+                        </div>
+                        <div className="text-sm text-gray-400 uppercase tracking-wide">WPM</div>
+                      </div>
+                      <div className="w-px h-12 bg-gray-600"></div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-blue-400">
+                          {calculateAccuracy(myText[1])}%
+                        </div>
+                        <div className="text-sm text-gray-400 uppercase tracking-wide">Accuracy</div>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <TimerSpan
+                        setIsFinished={setIsFinished}
+                        inputLostFocus={inputLostFocus}
+                        seconds={seconds}
+                        timerCountingInterval={timerCountingInterval}
+                        updateStatistics={updateStatistics}
+                      />
+                      <div className="text-sm text-gray-400 uppercase tracking-wide mt-1">Time Left</div>
+                    </div>
+                  </div>
                 </div>
               )}
-              {/* Text : Wpm & Timer */}
-              {isStartedTyping && <div className="w-full flex justify-between pb-8">
-                <span className="text-gray-400 md:text-xl text-sm ">
-                  {seconds.current == timeToType ? "0" : calculateWpm(myText[1], timeToType - seconds.current)} wpm
-                </span>
-                <TimerSpan
-                  setIsFinished={setIsFinished}
-                  inputLostFocus={inputLostFocus}
-                  seconds={seconds}
-                  timerCountingInterval={timerCountingInterval}
-                  updateStatistics={updateStatistics}
-                />
-              </div>}
-              
-              <div
-                className="lg:text-3xl md:text-xl sm:text-xl hover:cursor-pointer flex flex-wrap px-2 "
-                onClick={() => inputRef.current.focus()}
-              >
-                {myText[0].map((item, index) => {
-                  // console.log("DOM Showing words......");
-                  return (
-                    <div key={index} className="flex ">
-                      {item.word.split("").map((char, i) => {
-                        if (
-                          char.localeCompare(" ") == 0 &&
-                          myText[1][item.indexFrom + i].charColor.localeCompare("text-AAError") == 0
-                        ) {
-                          return (
-                            <div key={i} className={`relative text-AAError`}>
-                              {i + item.indexFrom == myText[2].CursorPosition ? <CursorCarrotComp /> : <></>}
-                              <div className="relative">
-                                &nbsp; <div className="absolute bottom-0 h-[3px] w-full bg-AAError"></div>
-                              </div>
-                            </div>
-                          );
-                        } else if (char.localeCompare(" ") == 0) {
-                          return (
-                            <div key={i} className="relative ">
-                              {i + item.indexFrom == myText[2].CursorPosition ? <CursorCarrotComp /> : <></>}
-                              &nbsp;
-                            </div>
-                          );
-                        } else {
-                          return (
-                            <div key={i} className={`relative ${myText[1][item.indexFrom + i].charColor}`}>
-                              {char}
-                              {i + item.indexFrom == myText[2].CursorPosition ? <CursorCarrotComp /> : <></>}
-                            </div>
-                          );
-                        }
-                      })}
+
+              {/* Typing Area */}
+              <div ref={textInputRef} className="relative w-full">
+                {inputLostFocus && (
+                  <div
+                    onClick={() => setInputLostFocus(false)}
+                    ref={absoluteTextINputRef}
+                    className="absolute w-full z-10 bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-cyan-400/30 flex justify-center items-center hover:cursor-pointer transition-all duration-300 hover:border-cyan-400/50"
+                  >
+                    <div className="text-center py-8">
+                      <div className="text-cyan-400 text-lg font-semibold mb-2">Click to continue typing</div>
+                      <div className="text-gray-400 text-sm">Press any key to resume</div>
                     </div>
-                  );
-                })}
-              </div>
-              {/**
-               * @textInput : this is the input that the user will type on it, it's hidden and it's used to get the user input
-               */}
-              <div className="w-full flex justify-center">
+                  </div>
+                )}
+                
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 shadow-2xl">
+                  <div
+                    className="text-2xl leading-relaxed hover:cursor-pointer flex flex-wrap"
+                    onClick={() => inputRef.current.focus()}
+                  >
+                    {myText[0].map((item, index) => {
+                      return (
+                        <div key={index} className="flex">
+                          {item.word.split("").map((char, i) => {
+                            if (
+                              char.localeCompare(" ") == 0 &&
+                              myText[1][item.indexFrom + i].charColor.localeCompare("text-AAError") == 0
+                            ) {
+                              return (
+                                <div key={i} className={`relative text-red-400`}>
+                                  {i + item.indexFrom == myText[2].CursorPosition ? <CursorCarrotComp /> : <></>}
+                                  <div className="relative">
+                                    &nbsp; <div className="absolute bottom-0 h-[3px] w-full bg-red-400 rounded"></div>
+                                  </div>
+                                </div>
+                              );
+                            } else if (char.localeCompare(" ") == 0) {
+                              return (
+                                <div key={i} className="relative">
+                                  {i + item.indexFrom == myText[2].CursorPosition ? <CursorCarrotComp /> : <></>}
+                                  &nbsp;
+                                </div>
+                              );
+                            } else {
+                              return (
+                                <div key={i} className={`relative transition-colors duration-150 ${
+                                  myText[1][item.indexFrom + i].charColor === "text-AAsecondary" ? "text-cyan-400" :
+                                  myText[1][item.indexFrom + i].charColor === "text-AAError" ? "text-red-400" :
+                                  "text-gray-400"
+                                }`}>
+                                  {char}
+                                  {i + item.indexFrom == myText[2].CursorPosition ? <CursorCarrotComp /> : <></>}
+                                </div>
+                              );
+                            }
+                          })}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Hidden Input */}
                 <input
                   onBlur={() => {
                     console.log("input lost focus!!");
@@ -212,13 +238,7 @@ export default function Home() {
                   }}
                   ref={inputRef}
                   type="text"
-                  // ?INFORMATIONAL : uncomment the following line to see the input
-                  // className="w-52 bg-AAprimary text-xl text-center text-gray-600 border-b-2 border-b-gray-600
-                  //           py-2 px-4 focus:outline-none "
-
-                  className="w-0 h-0 bg-AAprimary text-xl text-center text-gray-600  border-b-gray-600
-                  py-2 px-4 focus:outline-none "
-                  
+                  className="w-0 h-0 opacity-0 absolute"
                   onChange={e => {
                     if(isStartedTyping==false){
                       seIsStartedTyping(true);
@@ -236,36 +256,49 @@ export default function Home() {
                     );
                   }}
                   onKeyDownCapture={e => {
-                    // prevent cursor in input from jumping two characters
                     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
                       inputRef.current.setSelectionRange(
                         inputRef.current.value.length,
                         inputRef.current.value.length + 1
                       );
-
                     }
                   }}
                 />
               </div>
-            </div>
-          </main>
-          <Footer className="absolute bottom-0" link="https://github.com/arnab-4/Typing-school" />
-        </>
-      )}
 
-      {/* Finished Typing Section */}
-      {isFinished && (
-        <>
-          <TypingStatistics
-            restart={restart}
-            roundCounter={roundCounter}
-            seconds={seconds}
-            statistics={statistics}
-            timeToType={timeToType}
-          />
-          <Footer className="pt-16" link="https://github.com/arnab-4/Typing-Trainer" />
-        </>
-      )}
+              {/* Instructions */}
+              {!isStartedTyping && (
+                <div className="text-center space-y-4">
+                  <div className="text-gray-300 text-lg">Click on the text area and start typing to begin</div>
+                  <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
+                    <div className="flex items-center space-x-2">
+                      <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">Ctrl</kbd>
+                      <span>+</span>
+                      <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">/</kbd>
+                      <span>to restart</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </main>
+            <Footer className="mt-16" link="https://github.com/arnab-4/Typing-school" />
+          </>
+        )}
+
+        {/* Results Screen */}
+        {isFinished && (
+          <>
+            <TypingStatistics
+              restart={restart}
+              roundCounter={roundCounter}
+              seconds={seconds}
+              statistics={statistics}
+              timeToType={timeToType}
+            />
+            <Footer className="mt-16" link="https://github.com/arnab-4/Typing-Trainer" />
+          </>
+        )}
+      </div>
     </div>
   );
 }

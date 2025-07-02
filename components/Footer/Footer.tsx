@@ -1,58 +1,64 @@
 import React from "react";
+import { motion } from "framer-motion";
 import GithubIcon from "../Icons/GithubIcon";
 import LinkedinIcon from "../Icons/LinkedinIcon";
 import InstagramIcon from "../Icons/InstagramIcon";
-type Props={href:string,Icon:React.FC<{className:string}>}
-const ClickableIcon = (props:Props) => {
+
+type Props = { href: string; Icon: React.FC<{ className: string }> };
+
+const ClickableIcon = (props: Props) => {
   return (
-    <a href={props.href} className="" target={"_blank"} rel="noreferrer">
-      <props.Icon
-        className={
-          "w-5 h-5 text-gray-400 hover:text-AAsecondary transition duration-800 fill-current hover:cursor-pointer "
-        }
-      />
-    </a>
+    <motion.a
+      href={props.href}
+      target={"_blank"}
+      rel="noreferrer"
+      whileHover={{ scale: 1.1, y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      className="p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:bg-white/10"
+    >
+      <props.Icon className="w-5 h-5 text-gray-400 hover:text-cyan-400 transition-colors duration-300" />
+    </motion.a>
   );
 };
 
-export default function Fotter(props:{link:string,className:string}) {
+export default function Footer(props: { link: string; className: string }) {
   return (
-      <div className={` ${props.className} bg-AAprimary flex flex-col justify-center items-center py-8 space-y-4 `}>
-        {/* // ? Reach me at */}
-        <div className="flex flex-row space-x-8">
-          <ClickableIcon
-            href={"https://github.com/arnab-4"}
-            Icon={GithubIcon}
-          />
-          <ClickableIcon
-            href={"https://www.linkedin.com/in/arnab-manna-442586240/"}
-            Icon={LinkedinIcon}
-          />
-          <ClickableIcon
-            href={"https://www.instagram.com/_arnabbbb_/"}
-            Icon={InstagramIcon}
-          />
-        </div>
-        
-        <a href={props.link} className="" target={"_blank"} rel="noreferrer">
-          <div
-            className="group flex flex-col font-mono justify-center items-center  text-gray-400 
-    text-sm  space-y-2  "
-          >
-            <span className="group-hover:text-AAsecondary sm:text-sm text-xs">
-              Designed & Built by Arnab Manna
-            </span>
+    <motion.footer
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className={`${props.className} w-full flex flex-col items-center space-y-6 py-8`}
+    >
+      {/* Social Links */}
+      <div className="flex space-x-4">
+        <ClickableIcon href={"https://github.com/arnab-4"} Icon={GithubIcon} />
+        <ClickableIcon href={"https://www.linkedin.com/in/arnab-manna-442586240/"} Icon={LinkedinIcon} />
+        <ClickableIcon href={"https://www.instagram.com/_arnabbbb_/"} Icon={InstagramIcon} />
+      </div>
 
-            <span className="text-xs flex flex-row items-center space-x-2 group-hover:text-AAsecondary">
-              <GithubIcon
-                className={
-                  "w-4 h-4 text-gray-400 fill-current group-hover:text-AAsecondary duration-800"
-                }
-              />
-              <span className="">Profile</span>
-            </span>
+      {/* Creator Credit */}
+      <motion.a
+        href={props.link}
+        target={"_blank"}
+        rel="noreferrer"
+        whileHover={{ scale: 1.02 }}
+        className="group"
+      >
+        <div className="text-center space-y-2">
+          <div className="text-gray-400 group-hover:text-cyan-400 transition-colors duration-300 text-sm">
+            Designed & Built by Arnab Manna
           </div>
-        </a>
+          <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 group-hover:text-cyan-400 transition-colors duration-300">
+            <GithubIcon className="w-4 h-4" />
+            <span>View on GitHub</span>
           </div>
+        </div>
+      </motion.a>
+
+      {/* Copyright */}
+      <div className="text-xs text-gray-500 text-center">
+        © 2024 TypeMaster. Built with Next.js & Tailwind CSS
+      </div>
+    </motion.footer>
   );
 }

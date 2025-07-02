@@ -1,33 +1,82 @@
-import Img from "..//Image/Img";
+import { motion } from "framer-motion";
+import Img from "../Image/Img";
+
 export default function About() {
   return (
-    <div
-      className="w-full 2xl:px-96 xl:px-80 lg:px-64 md:px-28 px-12 
-                    flex md:flex-row flex-col md:space-x-12 items-center space-y-4 pt-24 
-                    opacity-70   hover:opacity-100 duration-500
-                    
-                     "
-      // opacity-10   hover:opacity-100 duration-500
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="w-full max-w-4xl mx-auto px-6"
     >
-      <div className="flex-none  w-32 lg:w-44 flex justify-center items-center">
-        <Img src="Arnab.png" alt="About picture" className="opacity-80" />
+      <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 shadow-2xl">
+        <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex-shrink-0"
+          >
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-cyan-400 to-blue-500 p-1">
+              <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
+                <Img src="Arnab.png" alt="About picture" className="w-full h-full object-cover opacity-90" />
+              </div>
+            </div>
+          </motion.div>
+          
+          <div className="flex-1 text-center md:text-left space-y-4">
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
+            >
+              Why Practice Typing?
+            </motion.h3>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="space-y-4 text-gray-300 leading-relaxed"
+            >
+              <p>
+                Most jobs don't explicitly require certain typing speeds, but that's because basic typing skills are
+                taken as a given. You should{" "}
+                <span className="font-semibold text-cyan-400">aim for at least 40 WPM</span> to maintain
+                a standard level of efficiency at work.
+              </p>
+              
+              <p>
+                Whether you're a beginner looking to improve your accuracy or an experienced typist striving for
+                greater efficiency, our platform offers a range of exercises and challenges to suit your needs.
+              </p>
+              
+              <p>
+                Join our community, track your progress, and embark on a journey towards becoming a more proficient
+                typist. Start typing your way to success today!
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-wrap gap-2 justify-center md:justify-start"
+            >
+              <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm border border-cyan-500/30">
+                Speed Training
+              </span>
+              <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm border border-blue-500/30">
+                Accuracy Focus
+              </span>
+              <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30">
+                Progress Tracking
+              </span>
+            </motion.div>
+          </div>
+        </div>
       </div>
-      <div className="flex flex-col space-y-8  items-center">
-        <span className="font-extrabold lg:text-5xl md:text-4xl text-2xl sm:text-3xl text-gray-300 text-center">
-          What&apos;s this project for?
-        </span>
-        <span className="font-sans italic  sm:text-base text-sm text-gray-400 text-center">
-          Most jobs do not explicitly require certain typing speeds, but that&apos;s because basic typing skills are
-          taken as a given. Thus, you should{" "}
-          <span className="font-bold text-gray-300">aim for a typing speed of at least 40 WPM</span> to keep up a
-          standard level of efficiency at work..Whether you&apos;re a beginner looking to improve your accuracy or an experienced typist striving for greater efficiency, our platform offers a range of exercises and challenges to suit your needs.Join our community, track your progress, and embark on a journey towards becoming a more proficient typist. Start typing your way to success today!
-
-
-
-
-
-        </span>
-      </div>
-    </div>
+    </motion.div>
   );
 }

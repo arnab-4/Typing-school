@@ -6,9 +6,9 @@ export default function RestartIcon() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1.5}
+      strokeWidth={2}
       stroke="currentColor"
-      className="w-full h-full text-gray-400 group-hover:text-AAsecondary group-hover:rotate-180 duration-200"
+      className="w-full h-full text-white group-hover:rotate-180 transition-transform duration-300"
     >
       <path
         strokeLinecap="round"
