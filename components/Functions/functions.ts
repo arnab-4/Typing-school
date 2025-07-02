@@ -13,7 +13,7 @@ export const getData = async (
   fetch("/api/typing/10")
     .then(response => response.json())
     .then(data => {
-      // Check if there's a server-side error first
+      // Check for server-side error first
       if (data.error) {
         console.error('Server-side error:', data.error);
         return;
